@@ -255,6 +255,102 @@ The library includes built-in gradients and patterns that can be customized:
 ### Component Styling
 Each component can be styled using standard SVG attributes and CSS properties.
 
+
+## API Reference
+
+Here's a detailed breakdown of the `EnhancedBioVis` class and its methods:
+
+**Constructor:**
+
+* **`new EnhancedBioVis(containerId, options = {})`**: Creates a new EnhancedBioVis instance.
+    * `containerId` (string, required): The ID of the HTML element where the visualization will be rendered.
+    * `options` (object, optional):  Configuration options.
+        * `width` (number): Width of the visualization canvas. Defaults to 800.
+        * `height` (number): Height of the visualization canvas. Defaults to 600.
+        * `scale` (number):  Scaling factor for the visualization. Defaults to 1.
+
+**Methods:**
+
+* **`createGradients()`**:  Creates SVG gradients for membrane, nucleus, and mitochondria. (Internal use).
+
+* **`createPatterns()`**:  Creates SVG patterns for chromatin and cristae. (Internal use).
+
+* **`createCell(options = {})`**: Creates a cell membrane representation.
+    * `options` (object, optional): Allows configuration of position, size, membrane visibility and an optional id (defaults to generated one).
+
+* **`createNucleus({ x, y, size })`**:  Creates a nucleus.
+    * `x` (number):  X-coordinate of the nucleus center.
+    * `y` (number):  Y-coordinate of the nucleus center.
+    * `size` (number): Radius of the nucleus.
+
+* **`createMitochondria({ x, y, size })`**: Creates a mitochondrion.
+    * `x` (number): X-coordinate of the mitochondrion center.
+    * `y` (number): Y-coordinate of the mitochondrion center.
+    * `size` (number):  Size of the mitochondrion.
+
+* **`createGolgi({ x, y, size })`**: Creates a Golgi apparatus.
+    * `x` (number): X-coordinate of the Golgi apparatus center.
+    * `y` (number): Y-coordinate of the Golgi apparatus center.
+    * `size` (number):  Size of the Golgi apparatus.
+
+* **`createER({ x, y, width, height })`**: Creates endoplasmic reticulum.
+    * `x` (number):  Starting X-coordinate of the ER.
+    * `y` (number): Starting Y-coordinate of the ER.
+    * `width` (number): Width of the ER.
+    * `height` (number):  Vertical displacement range for ER wave pattern.
+
+* **`createLysosome({ x, y, size })`**: Creates a lysosome.
+    * `x` (number):  X-coordinate of the lysosome center.
+    * `y` (number): Y-coordinate of the lysosome center.
+    * `size` (number): Radius of the lysosome.
+
+* **`addAnnotation(componentId, text, position = "right")`**: Adds an annotation to a component.
+    * `componentId` (string): ID of the component to annotate.
+    * `text` (string): The annotation text.
+    * `position` (string, optional): Position of the annotation relative to the component ("right", "left", "top", "bottom"). Defaults to "right". Returns annotation ID.
+
+
+* **`simulateProteinSynthesis({ duration = 5000, onComplete } = {})`**: Starts a protein synthesis animation. Clears any previous protein synthesis visualizations then calls sequenceDetailedProteinSynthesis.  See individual component creation calls for their parameters and meaning
+    * `duration` (number, optional):  Total animation duration in milliseconds. Defaults to 5000.
+    * `onComplete` (function, optional): Callback function executed after the animation completes.
+    
+* **`createDetailedMRNA()`**: [Creates detailed representation of mRNA.  Called during protein synthesis simulation.]
+* **`createDetailedRibosome()`**: [Creates a detailed visualization of ribosome for protein synthesis animations.]
+* **`createTRNAs()`**: [Creates detailed representations of tRNAs. Called during protein synthesis simulation.]
+* **`createDetailedProtein()`**: [Creates the visualization for proteins for the protein synthesis animations.]
+* **`sequenceDetailedProteinSynthesis(duration, onComplete)`**: Sequences all components for protein synthesis. Called by simulateProteinSynthesis.
+
+
+
+* **`animate(componentId, properties, duration)`**: Animates a component's properties over time.  `properties` are the element attributes that need to be animated with target final value e.g `{ opacity: 1 }`,  `duration` is in milliseconds
+* **`startAnimationLoop()`**: Internal loop managing all created animation sequences
+
+* **`clearProcessElements()`**: Clears the visual elements of previous process animations.
+
+* **`createLayer(name)`**: Creates and adds an SVG `<g>` (group) element to act as a layer for organizing the visualization. This method is primarily for internal use by the `EnhancedBioVis` library to organize elements onto separate layers, providing a structured rendering approach for greater flexibility in visualizations.
+
+
+* **`generateId(prefix)`**:  Generates a unique ID for components. (Mostly internal use)
+
+* **`registerComponent(element, id)`**: Stores the id-element reference in the class' components map. returns generated or specified id
+
+* **`toggleLabels()`**: Toggles the visibility of labels.
+
+* **`toggleTooltips()`**: Toggles tooltips on/off.  **(Future Development)**
+
+* **`destroy()`**: Cleans up the instance by removing elements and event listeners. Should be called when discarding visualisation class/unmounting react component if using
+
+* **`resize(width, height)`**:  Resizes the visualization. Takes `width` and `height` numbers as params
+
+
+
+## Future Development
+
+* Interactive elements (tooltips, click events).
+* More pre-built components for other biological structures.
+* Enhanced animation capabilities.
+
+
 ## Best Practices
 
 1. **Memory Management**
@@ -285,4 +381,4 @@ For bugs and feature requests, please create an issue in the repository.
 
 ## License
 
-[License information pending]
+MIT

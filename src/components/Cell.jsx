@@ -144,7 +144,7 @@ const CellVisualizationDemo = () => {
               onPressedChange={toggleLabels}
               aria-label="Toggle labels"
             >
-              <Info className="w-4 h-4" />
+              <Info className="w-4 h-4" /> j
             </Toggle>
             <div className="flex items-center gap-1">
               <ZoomOut className="w-4 h-4" />
